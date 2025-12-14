@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: sgmi-backend
+    runtime: node
+    region: oregon
+    plan: free
+    branch: master
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://neondb_owner:npg_xaUQJw1mAC4r@ep-fragrant-sky-ah6b1g8k-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
+      - key: JWT_SECRET
+        value: sgmi_secret_key_2025_super_seguro_cambiar_en_produccion
+      - key: JWT_EXPIRATION
+        value: 24h
+      - key: REFRESH_TOKEN_SECRET
+        value: sgmi_refresh_secret_key_2025_tambien_cambiar
+      - key: REFRESH_TOKEN_EXPIRATION
+        value: 7d
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DEMO_MODE
+        value: false
+      - key: FRONTEND_URL
+        value: http://localhost:5173
+      - key: FRONTEND_PROD_URL
+        value: https://sgmi-sistema-mantenimiento.vercel.app
