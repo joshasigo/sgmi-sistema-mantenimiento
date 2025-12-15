@@ -52,15 +52,15 @@ app.use('/api/reportes', reportesRoutes);
 app.use(errorHandler);
 
 // ==================== SERVIDOR ====================
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`
   ╔════════════════════════════════════════════════════════╗
   ║                                                        ║
   ║   🏭 SGMI Backend API                                  ║
   ║   Sistema de Gestión de Mantenimiento Industrial      ║
   ║                                                        ║
-  ║   🚀 Servidor: http://localhost:${PORT}                   ║
-  ║   📊 Health: http://localhost:${PORT}/api/health          ║
+  ║   🚀 Servidor: http://0.0.0.0:${PORT}                     ║
+  ║   📊 Health: /api/health                               ║
   ║   🔧 Modo: ${process.env.NODE_ENV || 'development'}                    ║
   ║   🎭 Demo: ${process.env.DEMO_MODE === 'true' ? 'Activo' : 'Inactivo'}                        ║
   ║                                                        ║
