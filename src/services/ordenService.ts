@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000/api';
+import api from './api';
 
 export interface OrdenTrabajo {
   id: string;
@@ -41,46 +39,30 @@ export interface CreateOrdenData {
 
 export interface UpdateOrdenData extends Partial<CreateOrdenData> {}
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
-  return {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  };
-};
+// Headers manejados automáticamente por api.ts
 
 export const ordenService = {
   getOrdenes: async (): Promise<OrdenTrabajo[]> => {
-    const response = await axios.get(`${API_URL}/ordenes`, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.get('/ordenes');
     return response.data.ordenes || response.data;
   },
 
   getOrdenById: async (id: string): Promise<OrdenTrabajo> => {
-    const response = await axios.get(`${API_URL}/ordenes/${id}`, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.get(`/ordenes/${id}`);
     return response.data.orden || response.data;
   },
 
   createOrden: async (data: CreateOrdenData): Promise<OrdenTrabajo> => {
-    const response = await axios.post(`${API_URL}/ordenes`, data, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.post('/ordenes', data);
     return response.data.orden || response.data;
   },
 
   updateOrden: async (id: string, data: UpdateOrdenData): Promise<OrdenTrabajo> => {
-    const response = await axios.put(`${API_URL}/ordenes/${id}`, data, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.put(`/ordenes/${id}`, data);
     return response.data.orden || response.data;
   },
 
   deleteOrden: async (id: string): Promise<void> => {
-    await axios.delete(`${API_URL}/ordenes/${id}`, {
-      headers: getAuthHeaders()
-    });
+    await api.delete(`/ordenes/${id}`);
   }
 };

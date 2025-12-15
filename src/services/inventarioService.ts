@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000/api';
+import api from './api';
 
 export interface ItemInventario {
   id: number;
@@ -27,46 +25,30 @@ export interface CreateInventarioData {
 
 export interface UpdateInventarioData extends Partial<CreateInventarioData> {}
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
-  return {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  };
-};
+// Headers manejados automáticamente por api.ts
 
 export const inventarioService = {
   getItems: async (): Promise<ItemInventario[]> => {
-    const response = await axios.get(`${API_URL}/inventario`, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.get('/inventario');
     return response.data.items || response.data;
   },
 
   getItemById: async (id: number): Promise<ItemInventario> => {
-    const response = await axios.get(`${API_URL}/inventario/${id}`, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.get(`/inventario/${id}`);
     return response.data.item || response.data;
   },
 
   createItem: async (data: CreateInventarioData): Promise<ItemInventario> => {
-    const response = await axios.post(`${API_URL}/inventario`, data, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.post('/inventario', data);
     return response.data.item || response.data;
   },
 
   updateItem: async (id: number, data: UpdateInventarioData): Promise<ItemInventario> => {
-    const response = await axios.put(`${API_URL}/inventario/${id}`, data, {
-      headers: getAuthHeaders()
-    });
+    const response = await api.put(`/inventario/${id}`, data);
     return response.data.item || response.data;
   },
 
   deleteItem: async (id: number): Promise<void> => {
-    await axios.delete(`${API_URL}/inventario/${id}`, {
-      headers: getAuthHeaders()
-    });
+    await api.delete(`/inventario/${id}`);
   }
 };
