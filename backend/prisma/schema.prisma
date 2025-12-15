@@ -65,9 +65,6 @@ model OrdenTrabajo {
   progreso            Int       @default(0) // 0-100
   fechaInicio         DateTime? @map("fecha_inicio")
   fechaFin            DateTime? @map("fecha_fin")
-  costoManoObra       Decimal?  @map("costo_mano_obra") @db.Decimal(10, 2) // COP
-  costoRepuestos      Decimal?  @map("costo_repuestos") @db.Decimal(10, 2) // COP
-  costoTotal          Decimal?  @map("costo_total") @db.Decimal(10, 2) // COP
   creadoPorId         String    @map("creado_por_id") @db.Uuid
   createdAt           DateTime  @default(now()) @map("created_at")
   updatedAt           DateTime  @updatedAt @map("updated_at")
