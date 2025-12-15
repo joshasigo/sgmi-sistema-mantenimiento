@@ -138,11 +138,6 @@ export const getEstadisticasInventario = async (_req: Request, res: Response) =>
       }),
       prisma.itemInventario.findMany()
     ]);
-
-    const [totalItems, itemsBajoStock] = await Promise.all([
-      countResult,
-      bajoStockResult
-    ]);
     
     // Calcular valor total del inventario
     const valorTotal = items.reduce((sum: number, item: any) =>
